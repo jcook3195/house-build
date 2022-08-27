@@ -219,7 +219,7 @@
           </thead>
           <tbody>
             <tr v-for="(data, index) in this.draws" :key="index">
-              <th scope="row" class="text-start">{{ index }}</th>
+              <th scope="row" class="text-start small-font">{{ index }}</th>
               <td>{{ data }}</td>
               <td>{{ calcPercentageOfTotalAndFormat(data) }}</td>
             </tr>
@@ -247,7 +247,7 @@
           </thead>
           <tbody>
             <tr v-for="(data, index) in compareDraws(this.draws, this.recievedDraws)" :key="index">
-              <th scope="row" class="text-start">{{ index }}</th>
+              <th scope="row" class="text-start small-font">{{ index }}</th>
               <td>{{ data }}</td>
               <td>{{ calcPercentageOfTotalAndFormat(data) }}</td>
             </tr>
@@ -411,5 +411,9 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+.small-font {
+  font-size: .75em !important;
 }
 </style>
