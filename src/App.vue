@@ -206,9 +206,57 @@
       <hr class="mb-4 mt-4">
     </div>
     <div class="row mb-3">
+      <!-- DRAW SCHEDULE -->
+      <div class="col-12">
+        <h2>Draws</h2>
+        <table class="table table-striped table-hover table-bordered">
+          <thead>
+            <tr class="table-dark">
+              <th scope="col">Draw</th>
+              <th scope="col">Percentage</th>
+              <th scope="col">Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(data, index) in this.draws" :key="index">
+              <th scope="row" class="text-start">{{ index }}</th>
+              <td>{{ data }}</td>
+              <td>{{ calcPercentageOfTotalAndFormat(data) }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>Credit Line: $185,000</h3>
+      </div>
+      <hr class="mb-4 mt-4">
+    </div>
+    <div class="row mb-3">
       <div class="col-12">
         <h3>Paid, But Not Owed (Bundicks): {{ formatAsCurrency(this.paidNotOwed) }}</h3>
       </div>
+    </div>
+    <div class="row mb-3">
+      <div class="col-12">
+        <h2>Recieved Draws</h2>
+        <table class="table table-striped table-hover table-bordered">
+          <thead>
+            <tr class="table-dark">
+              <th scope="col">Draw</th>
+              <th scope="col">Percentage</th>
+              <th scope="col">Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(data, index) in compareDraws(this.draws, this.recievedDraws)" :key="index">
+              <th scope="row" class="text-start">{{ index }}</th>
+              <td>{{ data }}</td>
+              <td>{{ calcPercentageOfTotalAndFormat(data) }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>Total Received: {{ calcPercentageOfTotalAndFormat(totalObj(compareDraws(this.draws, this.recievedDraws))) }}</h3>
+        <h3>Total Remaining {{ formatAsCurrency(185000 - (calcPercentageOfTotal(totalObj(compareDraws(this.draws, this.recievedDraws))))) }}</h3>
+      </div>
+      <hr class="mb-4 mt-4">
     </div>
   </div>
 </template>
@@ -259,7 +307,59 @@ export default {
         'Plubming Rough': 3700,
       },
       paidNotOwed: 12000,
-      bankCredit: 63441
+      bankCredit: 63441,
+      draws: {
+        'FOOTING/WATER METER/WELL': 3,
+        'FOUNDATION': 4,
+        'FOUNDATION: SLAB': 3,
+        'FRAMING: FLOOR/SUBFLOOR': 6,
+        'FRAMING: INSIDE/OUTSIDE WALLS': 5,
+        'FRAMING: CEILING&WALL SHEATING': 3,
+        'FRAMING: ROOF & DECKING': 4,
+        'SHINGLES': 3,
+        'FIREPLACE CHIMNEY&FLUES': 1,
+        'PLUMBING ROUGED': 2,
+        'ELECTRICAL ROUGH': 2,
+        'SEPTIC TANK/SEWER': 2,
+        'GARAGE DOOR': 1,
+        'OUTSIDE DOORS&WINDOWS': 4,
+        'EXTERIOR: SIDING': 3,
+        'EXTERIOR: BRICK OR STUCCO': 4,
+        'CORNICE & FACIA': 2,
+        'INSULATION': 2,
+        'SHEETROCK': 6,
+        'EXTERIOR:PAINT: PRIMED': 1,
+        'EXTERIOR:PAIN: FINISHED': 2,
+        'INSIDE TRIM': 4,
+        'INTERIOR DOORS': 3,
+        'CABINETS': 4,
+        'TILE/VINYL: KITCHEN/BATH': 4,
+        'FURNACE: ROUGH IN & UNIT SET': 3,
+        'HVAC SET': 1,
+        'CONCRETE DRIVE/SIDEWALK': 1,
+        'INTERIOR PAINT :PRIMED': 1,
+        'INTERIOR PAIN/WALL PAPER FINSIH': 2,
+        'PLUMBING FIXTURES SET': 2,
+        'ELECTRICAL FIXTURES SET': 1,
+        'PORCHES & DECKS': 1,
+        'FINISHED CARPET': 1,
+        'HARDWOOD FLOORS': 2,
+        'KITCHEN APPLIANCES': 3,
+        'GUTTERS': 1,
+        'FINISHED GRADING/LANDSCAPING': 2,
+        'FINAL INSPECTION': 1
+      },
+      recievedDraws: {
+        'FOUNDATION': 4,
+        'FOUNDATION: SLAB': 3,
+        'FRAMING: FLOOR/SUBFLOOR': 6,
+        'FRAMING: INSIDE/OUTSIDE WALLS': 5,
+        'FRAMING: CEILING&WALL SHEATING': 3,
+        'FRAMING: ROOF & DECKING': 4,
+        'OUTSIDE DOORS&WINDOWS': 4,
+        'PORCHES & DECKS': 1,
+        'KITCHEN APPLIANCES': 3,
+      }
     }
   },
   methods: {
@@ -278,6 +378,28 @@ export default {
       const objTotal = this.totalObj(obj);
       return this.formatAsCurrency(objTotal);
     },
+    calcPercentageOfTotal(percentage) {
+      const total = 185000;
+      const pTotal = (percentage / 100) * total;
+      return pTotal;
+    },
+    calcPercentageOfTotalAndFormat(percentage) {
+      const newTotal = this.calcPercentageOfTotal(percentage);
+      return this.formatAsCurrency(newTotal);
+    },
+    compareDraws(obj1, obj2) {
+      let newObj = {};
+
+      for(let key1 in obj1) {
+        for(let key2 in obj2) {
+          if(key1 == key2) {
+            newObj[key2] = obj2[key2];
+          }
+        }
+      }
+
+      return newObj;
+    }
   },
 }
 </script>
