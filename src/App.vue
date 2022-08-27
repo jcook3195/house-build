@@ -1,10 +1,286 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <nav class="navbar navbar-dark bg-primary justify-content-center mb-3">
+    <h1 class="mb-0 h1 text-white">House Build</h1>
   </nav>
-  <router-view/>
+  <div class="container">    
+    <div class="row mb-3">
+      <div class="col-12">
+        <h2>Total Credit from MSB: {{ formatAsCurrency(this.bankCredit) }}</h2>
+        <table class="table table-striped table-hover table-bordered">
+          <thead>
+            <tr class="table-dark">
+              <th scope="col"> </th>
+              <th scope="col"> </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row" class="text-start">Total Cost so Far: (Materials + Labor)</th>
+              <td>{{ formatAsCurrency(totalObj(this.materials) + totalObj(this.labor)) }}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="text-start">Credit From MSB so Far:</th>
+              <td>{{ formatAsCurrency(this.bankCredit) }}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="text-start">In the Hole/Ahead: (Diff MSB Credit & Total Cost)</th>
+              <td :class="[(this.bankCredit - (totalObj(this.materials) + totalObj(this.labor)))? 'text-danger' : 'text-success']">{{ formatAsCurrency(this.bankCredit - (totalObj(this.materials) + totalObj(this.labor))) }}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="text-start">Unclaimed Credit (Done But No Credit From MSB)</th>
+              <td>{{ totalObjectAndFormat(this.unclaimedCredit) }}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="text-start">In the Hole/Ahead After Unclaimed: (Orig In The Hole + Unclaimed Credit)</th>
+              <td :class="[(totalObj(this.unclaimedCredit) + (this.bankCredit - (totalObj(this.materials) + totalObj(this.labor))) < 0)? 'text-danger' : 'text-success']">{{ formatAsCurrency(totalObj(this.unclaimedCredit) + (this.bankCredit - (totalObj(this.materials) + totalObj(this.labor)))) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <hr class="mb-4 mt-4">
+    </div>
+    <div class="row mb-3">
+      <div class="col-12">
+        <h2>MSB Balancing</h2>
+        <table class="table table-striped table-hover table-bordered">
+          <thead>
+            <tr class="table-dark">
+              <th scope="col"> </th>
+              <th scope="col"> </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row" class="text-start">Total MSB Credit</th>
+              <td>{{ formatAsCurrency(this.bankCredit) }}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="text-start">Payouts From MSB</th>
+              <td>{{ totalObjectAndFormat(this.paidFromBank) }}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="text-start">MSB Balance (Total Credited - Payouts)</th>
+              <td :class="[((this.bankCredit - totalObj(this.paidFromBank)) < 0)? 'text-danger' : 'text-success']">{{ formatAsCurrency((this.bankCredit - totalObj(this.paidFromBank))) }}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="text-start">Planning To Cut Check Soon</th>
+              <td>{{ totalObjectAndFormat(this.planToPaySoon) }}</td>
+            </tr>
+            <tr>
+              <th scope="row" class="text-start">MSB Balance After Soon Payments (MSB Balance - Planning To Pay Soon)</th>
+              <td :class="[((this.bankCredit - totalObj(this.paidFromBank)) - (totalObj(this.planToPaySoon)) < 0)? 'text-danger' : 'text-success']">{{ formatAsCurrency((this.bankCredit - totalObj(this.paidFromBank)) - (totalObj(this.planToPaySoon))) }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <hr class="mb-4 mt-4">
+    </div>
+    <div class="row mb-3">
+      <!-- MATERIALS -->
+      <div class="col-12 col-md-6">
+        <h2>Materials</h2>
+        <table class="table table-striped table-hover table-bordered">
+          <thead>
+            <tr class="table-dark">
+              <th scope="col">Expense</th>
+              <th scope="col">Cost</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(data, index) in this.materials" :key="index">
+              <th scope="row" class="text-start">{{ index }}</th>
+              <td>{{ formatAsCurrency(data) }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>Materials Total: {{ totalObjectAndFormat(this.materials) }}</h3>
+      </div>
+      <!-- LABOR -->
+      <div class="col-12 col-md-6">
+        <h2>Labor</h2>
+        <table class="table table-striped table-hover table-bordered">
+          <thead>
+            <tr class="table-dark">
+              <th scope="col">Expense</th>
+              <th scope="col">Cost</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(data, index) in this.labor" :key="index">
+              <th scope="row" class="text-start">{{ index }}</th>
+              <td>{{ formatAsCurrency(data) }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>Labor Total: {{ totalObjectAndFormat(this.labor) }}</h3>
+      </div>
+      <hr class="mb-4 mt-4">
+    </div>
+    <div class="row mb-3">
+      <!-- MATERIALS AND LABOR TOTAL -->
+      <div class="col-12">
+        <h3>Total Mats & Labor: {{ formatAsCurrency(totalObj(this.materials) + totalObj(this.labor)) }}</h3>
+      </div>
+      <hr class="mb-4 mt-4">
+    </div>
+    <div class="row mb-3">
+      <!-- OWED -->
+      <div class="col-12 col-md-6">
+        <h2>Still Owed</h2>
+        <table class="table table-striped table-hover table-bordered">
+          <thead>
+            <tr class="table-dark">
+              <th scope="col">Owed</th>
+              <th scope="col">Cost</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(data, index) in this.owed" :key="index">
+              <th scope="row" class="text-start">{{ index }}</th>
+              <td>{{ formatAsCurrency(data) }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>Still Owed Total: {{ totalObjectAndFormat(this.owed) }}</h3>
+      </div>
+      <!-- BANK PAYOUTS -->
+      <div class="col-12 col-md-6">
+        <h2>Bank Payouts</h2>
+        <table class="table table-striped table-hover table-bordered">
+          <thead>
+            <tr class="table-dark">
+              <th scope="col">Payee</th>
+              <th scope="col">Cost</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(data, index) in this.paidFromBank" :key="index">
+              <th scope="row" class="text-start">{{ index }}</th>
+              <td>{{ formatAsCurrency(data) }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>Total Bank Payouts: {{ totalObjectAndFormat(this.paidFromBank) }}</h3>
+      </div>
+      <hr class="mb-4 mt-4">
+    </div>
+    <div class="row mb-3">
+      <!-- UNCLAIMED CREDIT -->
+      <div class="col-12 col-md-6">
+        <h2>Unclaimed MSB Credit</h2>
+        <table class="table table-striped table-hover table-bordered">
+          <thead>
+            <tr class="table-dark">
+              <th scope="col">Expense</th>
+              <th scope="col">Cost</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(data, index) in this.unclaimedCredit" :key="index">
+              <th scope="row" class="text-start">{{ index }}</th>
+              <td>{{ formatAsCurrency(data) }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>Unclaimed Credit Total: {{ totalObjectAndFormat(this.unclaimedCredit) }}</h3>
+      </div>
+      <!-- PLANNING TO PAY SOON -->
+      <div class="col-12 col-md-6">
+        <h2>Planning To Pay Soon</h2>
+        <table class="table table-striped table-hover table-bordered">
+          <thead>
+            <tr class="table-dark">
+              <th scope="col">Expense</th>
+              <th scope="col">Cost</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(data, index) in this.planToPaySoon" :key="index">
+              <th scope="row" class="text-start">{{ index }}</th>
+              <td>{{ formatAsCurrency(data) }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>Planning To Pay Soon Total: {{ totalObjectAndFormat(this.planToPaySoon) }}</h3>
+      </div>
+      <hr class="mb-4 mt-4">
+    </div>
+    <div class="row mb-3">
+      <div class="col-12">
+        <h3>Paid, But Not Owed (Bundicks): {{ formatAsCurrency(this.paidNotOwed) }}</h3>
+      </div>
+    </div>
+  </div>
 </template>
+
+<script>
+
+export default {
+  name: 'HomeView',
+  data() {
+    return {
+      materials: {
+        'BH Hall Footer Concrete': 3123,
+        'HA Bill Footers & Foundation': 4272,
+        'Appliances': 2765,
+        'Windows': 3721,
+        'Ext Doors': 1837,
+        'Shower Fixtures/Pendant Lights': 548,
+        'Sink': 350,
+        'HA Bill Framing & Roofing': 39591
+      },
+      labor: {
+        'Gene Footers Labor': 2338,
+        'Fidel Foundation Labor': 2080,
+        'Tyler Electrical Rough': 5000
+      },
+      owed: {
+        'Jordan - Fidel Labor': 2080,
+        'Jordan - Windows': 828,
+        'Jordan - Ext Doors': 1837,
+        'Jordan - Appliances': 2765,
+        'Jordan - Sink': 350,
+        'Jordan - Handy Andy Bill': 2372,
+        'Blakelyn - Windows': 2893,
+        'Bundicks - Roofing Labor': 2000
+      },      
+      paidFromBank: {
+        'Robin - Footers Payback': 5470,
+        'Handy Andy Partial Bill': 1900,
+        'Tyler Kirkley - Elec Rough': 5000 
+      },
+      planToPaySoon: {
+        'HA Framing & Roofing Bill': 39591,
+        'Bundicks Roofing Labor': 2000
+      },
+      unclaimedCredit: {
+        'Roofing': 5550,
+        'Electrical Rough': 3700,
+        'Plubming Rough': 3700,
+      },
+      paidNotOwed: 12000,
+      bankCredit: 63441
+    }
+  },
+  methods: {
+    formatAsCurrency(number) {
+      const formatter = new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD',
+      });
+
+      return formatter.format(number);
+    },
+    totalObj(obj) {
+      return Object.values(obj).reduce((a, b) => a + b);
+    },
+    totalObjectAndFormat(obj) {
+      const objTotal = this.totalObj(obj);
+      return this.formatAsCurrency(objTotal);
+    },
+  },
+}
+</script>
 
 <style lang="scss">
 #app {
@@ -13,18 +289,5 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
 }
 </style>
