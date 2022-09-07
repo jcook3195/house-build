@@ -295,10 +295,10 @@ export default {
       paidFromBank: {
         'Robin - Footers Payback': 5470,
         'Handy Andy Partial Bill': 1900,
-        'Tyler Kirkley - Elec Rough': 5000 
+        'Tyler Kirkley - Elec Rough': 5000,
+        'Handy Andy - August': 39591,
       },
       planToPaySoon: {
-        'HA Framing & Roofing Bill': 39591,
         'Bundicks Roofing Labor': 2000
       },
       unclaimedCredit: {
@@ -307,7 +307,7 @@ export default {
         'Plubming Rough': 3700,
       },
       paidNotOwed: 12000,
-      bankCredit: 63441,
+      bankCredit: 76391,
       draws: {
         'FOOTING/WATER METER/WELL': 3,
         'FOUNDATION': 4,
@@ -359,6 +359,9 @@ export default {
         'OUTSIDE DOORS&WINDOWS': 4,
         'PORCHES & DECKS': 1,
         'KITCHEN APPLIANCES': 3,
+        'SHINGLES': 3,
+        'PLUMBING ROUGHED': 2,
+        'ELECTRICAL ROUGH': 2,
       }
     }
   },
