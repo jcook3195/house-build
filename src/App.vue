@@ -306,9 +306,7 @@ export default {
         'Bundicks Roofing Labor': 2000
       },
       unclaimedCredit: {
-        'Roofing': 5550,
-        'Electrical Rough': 3700,
-        'Plubming Rough': 3700,
+        'Siding': 5550
       },
       paidNotOwed: 12000,
       bankCredit: 76391,
