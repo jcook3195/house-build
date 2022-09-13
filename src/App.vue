@@ -289,6 +289,9 @@ export default {
         'Jordan - Appliances': 2765,
         'Jordan - Sink': 350,
         'Jordan - Handy Andy Bill': 2372,
+        'Jordan - Firebox': 635,
+        'Jordan - Range Vent': 196,
+        'Jordan - Faucets': 220,
         'Blakelyn - Windows': 2893,
         'Bundicks - Roofing Labor': 2000
       },      
@@ -297,6 +300,7 @@ export default {
         'Handy Andy Partial Bill': 1900,
         'Tyler Kirkley - Elec Rough': 5000,
         'Handy Andy - August': 39591,
+        'Siding Labor': 2000
       },
       planToPaySoon: {
         'Bundicks Roofing Labor': 2000
