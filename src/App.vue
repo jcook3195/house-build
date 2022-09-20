@@ -306,11 +306,13 @@ export default {
         'Bundicks - Roofing Labor': 2000
       },
       planToPaySoon: {
+        '-': 0,
       },
       unclaimedCredit: {
+        '-': 0,
       },
       paidNotOwed: 12000,
-      bankCredit: 96741,
+      bankCredit: 94350,
       draws: {
         'FOOTING/WATER METER/WELL': 3,
         'FOUNDATION': 4,
@@ -321,7 +323,7 @@ export default {
         'FRAMING: ROOF & DECKING': 4,
         'SHINGLES': 3,
         'FIREPLACE CHIMNEY&FLUES': 1,
-        'PLUMBING ROUGED': 2,
+        'PLUMBING ROUGHED': 2,
         'ELECTRICAL ROUGH': 2,
         'SEPTIC TANK/SEWER': 2,
         'GARAGE DOOR': 1,
