@@ -275,12 +275,14 @@ export default {
         'Ext Doors': 1837,
         'Shower Fixtures/Pendant Lights': 548,
         'Sink': 350,
-        'HA Bill Framing & Roofing': 39591
+        'HA Bill Framing & Roofing': 39591,
+        'Paint & Primer': 1080
       },
       labor: {
         'Gene Footers Labor': 2338,
         'Fidel Foundation Labor': 2080,
-        'Tyler Electrical Rough': 5000
+        'Tyler Electrical Rough': 5000,
+        'Jovanny Exterior Siding': 5545
       },
       owed: {
         'Jordan - Fidel Labor': 2080,
@@ -290,26 +292,25 @@ export default {
         'Jordan - Sink': 350,
         'Jordan - Handy Andy Bill': 2372,
         'Jordan - Firebox': 635,
-        'Jordan - Range Vent': 196,
+        'Jordan - Range Vent': 220,
         'Jordan - Faucets': 220,
         'Blakelyn - Windows': 2893,
-        'Bundicks - Roofing Labor': 2000
+        'Jordan - Paint Materials': 1080
       },      
       paidFromBank: {
         'Robin - Footers Payback': 5470,
         'Handy Andy Partial Bill': 1900,
         'Tyler Kirkley - Elec Rough': 5000,
         'Handy Andy - August': 39591,
-        'Siding Labor': 2000
+        'Jovanny - Siding Labor': 5545,
+        'Bundicks - Roofing Labor': 2000
       },
       planToPaySoon: {
-        'Bundicks Roofing Labor': 2000
       },
       unclaimedCredit: {
-        'Siding': 5550
       },
       paidNotOwed: 12000,
-      bankCredit: 76391,
+      bankCredit: 96741,
       draws: {
         'FOOTING/WATER METER/WELL': 3,
         'FOUNDATION': 4,
@@ -326,12 +327,13 @@ export default {
         'GARAGE DOOR': 1,
         'OUTSIDE DOORS&WINDOWS': 4,
         'EXTERIOR: SIDING': 3,
-        'EXTERIOR: BRICK OR STUCCO': 4,
+        'EXTERIOR: BRICK OR STUCCO': 3,
+        'NEW - STUCCO': 1,
         'CORNICE & FACIA': 2,
         'INSULATION': 2,
         'SHEETROCK': 6,
         'EXTERIOR:PAINT: PRIMED': 1,
-        'EXTERIOR:PAIN: FINISHED': 2,
+        'EXTERIOR:PAINT: FINISHED': 2,
         'INSIDE TRIM': 4,
         'INTERIOR DOORS': 3,
         'CABINETS': 4,
@@ -364,6 +366,11 @@ export default {
         'SHINGLES': 3,
         'PLUMBING ROUGHED': 2,
         'ELECTRICAL ROUGH': 2,
+        'EXTERIOR: SIDING': 3,
+        'EXTERIOR: BRICK OR STUCCO': 3,
+        'CORNICE & FACIA': 2,
+        'EXTERIOR:PAINT: PRIMED': 1,
+        'EXTERIOR:PAINT: FINISHED': 2
       }
     }
   },
