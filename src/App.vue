@@ -276,13 +276,15 @@ export default {
         'Shower Fixtures/Pendant Lights': 548,
         'Sink': 350,
         'HA Bill Framing & Roofing': 39591,
-        'Paint & Primer': 1080
+        'Paint & Primer': 1080,
+        'Cabinets & Countertops': 7720
       },
       labor: {
         'Gene Footers Labor': 2338,
         'Fidel Foundation Labor': 2080,
         'Tyler Electrical Rough': 5000,
-        'Jovanny Exterior Siding': 5545
+        'Jovanny Exterior Siding': 5545,
+        'Walter Exterior Painting': 4800
       },
       owed: {
         'Jordan - Fidel Labor': 2080,
@@ -303,7 +305,9 @@ export default {
         'Tyler Kirkley - Elec Rough': 5000,
         'Handy Andy - August': 39591,
         'Jovanny - Siding Labor': 5545,
-        'Bundicks - Roofing Labor': 2000
+        'Bundicks - Roofing Labor': 2000,
+        'Walter Flores - Exterior Painting Labor': 4800,
+        'Jordan Cook - Cabinets & Countertops': 7720
       },
       planToPaySoon: {
         '-': 0,
