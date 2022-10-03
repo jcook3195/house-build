@@ -277,14 +277,17 @@ export default {
         'Sink': 350,
         'HA Bill Framing & Roofing': 39591,
         'Paint & Primer': 1080,
-        'Cabinets & Countertops': 7720
+        'Cabinets & Countertops': 7720,
+        'Insulation': 974
       },
       labor: {
         'Gene Footers Labor': 2338,
         'Fidel Foundation Labor': 2080,
         'Tyler Electrical Rough': 5000,
+        'Roofing Labor': 2000,
         'Jovanny Exterior Siding': 5545,
-        'Walter Exterior Painting': 4800
+        'Walter Exterior Painting': 4800,
+        'Fidel Stucco Labor': 1000
       },
       owed: {
         'Jordan - Fidel Labor': 2080,
@@ -297,7 +300,9 @@ export default {
         'Jordan - Range Vent': 220,
         'Jordan - Faucets': 220,
         'Blakelyn - Windows': 2893,
-        'Jordan - Paint Materials': 1080
+        'Jordan - Paint Materials': 1080,
+        'Jordan - Fidel Stucco Labor': 1000,
+        'Jordan - Insulation Materials': 974
       },      
       paidFromBank: {
         'Robin - Footers Payback': 5470,
@@ -310,10 +315,11 @@ export default {
         'Jordan Cook - Cabinets & Countertops': 7720
       },
       planToPaySoon: {
-        '-': 0,
+        'Curtis Coody - Plumbing': 7532,
       },
       unclaimedCredit: {
-        '-': 0,
+        'NEW - STUCCO': 1850,
+        'INSULATION': 3700,
       },
       paidNotOwed: 12000,
       bankCredit: 94350,
