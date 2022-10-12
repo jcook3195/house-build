@@ -219,9 +219,9 @@
           </thead>
           <tbody>
             <tr v-for="(data, index) in this.draws" :key="index">
-              <th scope="row" class="text-start small-font">{{ index }}</th>
-              <td>{{ data }}</td>
-              <td>{{ calcPercentageOfTotalAndFormat(data) }}</td>
+              <th scope="row" :class="['text-start small-font', compareSingleDraw(index, this.recievedDraws)? 'green-table-cell' : '']">{{ index }}</th>
+              <td :class="[compareSingleDraw(index, this.recievedDraws)? 'green-table-cell' : '']">{{ data }}</td>
+              <td :class="[compareSingleDraw(index, this.recievedDraws)? 'green-table-cell' : '']">{{ calcPercentageOfTotalAndFormat(data) }}</td>
             </tr>
           </tbody>
         </table>
@@ -254,7 +254,33 @@
           </tbody>
         </table>
         <h3>Total Received: {{ calcPercentageOfTotalAndFormat(totalObj(compareDraws(this.draws, this.recievedDraws))) }}</h3>
-        <h3>Total Remaining {{ formatAsCurrency(185000 - (calcPercentageOfTotal(totalObj(compareDraws(this.draws, this.recievedDraws))))) }}</h3>
+        <h3>Total Remaining: {{ formatAsCurrency(185000 - (calcPercentageOfTotal(totalObj(compareDraws(this.draws, this.recievedDraws))))) }}</h3>
+      </div>
+      <hr class="mb-4 mt-4">
+    </div>
+    <div class="row mb-3">
+      <div class="col-12">
+        <h2>Estimated Remaining Expenses</h2>
+        <table class="table table-striped table-hover table-bordered">
+          <thead>
+            <tr class="table-dark">
+              <th scope="col">Item</th>
+              <th scope="col">Cost</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(data, index) in this.estimatedRemaining" :key="index">
+              <th scope="row" class="text-start">{{ index }}</th>
+              <td>{{ formatAsCurrency(data) }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <h3>Total Estimated: {{ formatAsCurrency(totalObj(this.estimatedRemaining)) }}</h3>
+        <h3>Total Still in Bank: {{ formatAsCurrency(185000 - (calcPercentageOfTotal(totalObj(compareDraws(this.draws, this.recievedDraws))))) }}</h3>
+        <h3>In the Green: {{ formatAsCurrency((185000 - (calcPercentageOfTotal(totalObj(compareDraws(this.draws, this.recievedDraws))))) - (totalObj(this.estimatedRemaining))) }}</h3>
+        <h3>Total Loan Before Down Payment: {{ formatAsCurrency((185000) - ((185000 - (calcPercentageOfTotal(totalObj(compareDraws(this.draws, this.recievedDraws))))) - (totalObj(this.estimatedRemaining)))) }}</h3>
+        <h3>Total Cost of Build including not owed: {{ formatAsCurrency((paidNotOwed) + ((185000) - ((185000 - (calcPercentageOfTotal(totalObj(compareDraws(this.draws, this.recievedDraws))))) - (totalObj(this.estimatedRemaining))))) }}</h3>
+        <h3>Total Cost of Building including not owed & if pay ourselved back: {{ formatAsCurrency((totalObj(this.owed)) + ((this.paidNotOwed) + ((185000) - ((185000 - (calcPercentageOfTotal(totalObj(compareDraws(this.draws, this.recievedDraws))))) - (totalObj(this.estimatedRemaining)))))) }}</h3>
       </div>
       <hr class="mb-4 mt-4">
     </div>
@@ -278,7 +304,8 @@ export default {
         'HA Bill Framing & Roofing': 39591,
         'Paint & Primer': 1080,
         'Cabinets & Countertops': 7720,
-        'Insulation': 974
+        'Insulation': 974,
+        'HA Bill Ext Siding': 7600
       },
       labor: {
         'Gene Footers Labor': 2338,
@@ -312,7 +339,8 @@ export default {
         'Jovanny - Siding Labor': 5545,
         'Bundicks - Roofing Labor': 2000,
         'Walter Flores - Exterior Painting Labor': 4800,
-        'Jordan Cook - Cabinets & Countertops': 7720
+        'Jordan Cook - Cabinets & Countertops': 7720,
+        'Handy Andy - September': 7600
       },
       planToPaySoon: {
         'Curtis Coody - Plumbing': 7532,
@@ -383,6 +411,19 @@ export default {
         'CORNICE & FACIA': 2,
         'EXTERIOR:PAINT: PRIMED': 1,
         'EXTERIOR:PAINT: FINISHED': 2
+      },
+      estimatedRemaining: {
+        'Well': 9400,
+        'Sheet Rock': 11000,
+        'HVAC': 9800,
+        'Electrical Finishing': 3200,
+        'Plumb + Tubs': 8500,
+        'Trimming': 2000,
+        'Septic': 6000,
+        'Stairs + Fireplace': 2000,
+        'Interior Paint': 1000,
+        'Flooring': 3000,
+        'Misc': 1000
       }
     }
   },
@@ -423,6 +464,18 @@ export default {
       }
 
       return newObj;
+    },
+    compareSingleDraw(drawIndex, recDraws) {
+      for(let key in recDraws) {
+        if(drawIndex == key) {
+          console.log(drawIndex + ' equals ' + key);
+          return true;
+        } else {
+          console.log(drawIndex + ' does not equal ' + key);
+        }        
+      }
+
+      return false;
     }
   },
 }
@@ -439,5 +492,9 @@ export default {
 
 .small-font {
   font-size: .75em !important;
+}
+
+.green-table-cell {
+  background-color: #95f59c !important;
 }
 </style>
