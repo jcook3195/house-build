@@ -305,7 +305,11 @@ export default {
         'Paint & Primer': 1080,
         'Cabinets & Countertops': 7720,
         'Insulation': 974,
-        'HA Bill Ext Siding': 7600
+        'HA Bill Ext Siding': 7600,
+        'HA Bill Drywall': 5097,
+        'Interior Paint': 591,
+        'Interior Doors': 1233,
+        'Trim': 427
       },
       labor: {
         'Gene Footers Labor': 2338,
@@ -314,7 +318,10 @@ export default {
         'Roofing Labor': 2000,
         'Jovanny Exterior Siding': 5545,
         'Walter Exterior Painting': 4800,
-        'Fidel Stucco Labor': 1000
+        'Fidel Stucco Labor': 1000,
+        'Mike Rhodes Well': 9400,
+        'Beasley Drywall': 6475,
+        'Curtis Plumbing': 7532
       },
       owed: {
         'Jordan - Fidel Labor': 2080,
@@ -329,7 +336,10 @@ export default {
         'Blakelyn - Windows': 2893,
         'Jordan - Paint Materials': 1080,
         'Jordan - Fidel Stucco Labor': 1000,
-        'Jordan - Insulation Materials': 974
+        'Jordan - Insulation Materials': 974,
+        'Jordan - Interior Paint': 591,
+        'Jordan - Interior Doors': 1233,
+        'Jordan - Trim': 427
       },      
       paidFromBank: {
         'Robin - Footers Payback': 5470,
@@ -340,14 +350,19 @@ export default {
         'Bundicks - Roofing Labor': 2000,
         'Walter Flores - Exterior Painting Labor': 4800,
         'Jordan Cook - Cabinets & Countertops': 7720,
-        'Handy Andy - September': 7600
+        'Handy Andy - September': 7600,
+        'Curtis - Plumbing Rough': 7532,
+        'Mike Rhodes - Well': 9400,
+        'Handy Andy - Oct': 5097,
+        'Beasley Drywall': 6475
       },
       planToPaySoon: {
-        'Curtis Coody - Plumbing': 7532,
+        '-': 0,
       },
       unclaimedCredit: {
-        'NEW - STUCCO': 1850,
-        'INSULATION': 3700,
+        'INTERIOR PAINT :PRIMED': 1850,
+        'INTERIOR PAIN/WALL PAPER FINSIH': 3700,
+        'CABINETS': 7400,
       },
       paidNotOwed: 12000,
       bankCredit: 94350,
@@ -394,6 +409,7 @@ export default {
         'FINAL INSPECTION': 1
       },
       recievedDraws: {
+        'FOOTING/WATER METER/WELL': 3,
         'FOUNDATION': 4,
         'FOUNDATION: SLAB': 3,
         'FRAMING: FLOOR/SUBFLOOR': 6,
@@ -410,18 +426,19 @@ export default {
         'EXTERIOR: BRICK OR STUCCO': 3,
         'CORNICE & FACIA': 2,
         'EXTERIOR:PAINT: PRIMED': 1,
-        'EXTERIOR:PAINT: FINISHED': 2
+        'EXTERIOR:PAINT: FINISHED': 2,
+        'INSULATION': 2,
+        'SHEETROCK': 6,
+        'NEW - STUCCO': 1,
       },
       estimatedRemaining: {
         'Well': 9400,
-        'Sheet Rock': 11000,
         'HVAC': 9800,
         'Electrical Finishing': 3200,
         'Plumb + Tubs': 8500,
         'Trimming': 2000,
         'Septic': 6000,
         'Stairs + Fireplace': 2000,
-        'Interior Paint': 1000,
         'Flooring': 3000,
         'Misc': 1000
       }
